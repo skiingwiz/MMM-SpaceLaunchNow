@@ -14,7 +14,7 @@ Module.register("MMM-SpaceLaunchNow", {
 		headerText: "SpaceLaunchNow",
 		maxWidthWide: 30,
 		maxWidthSmall: 12,
-		apiBase: "https://spacelaunchnow.me/api/3.3.0/launch",
+		apiBase: "https://ll.thespacedevs.com/2.2.0/launch",
 		tableClass: "small",
 		spacexlogo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/SpaceX-Logo-Xonly.svg/1280px-SpaceX-Logo-Xonly.svg.png",
 		nasalogo: "https://tinyurl.com/s2ddgbr",
@@ -152,14 +152,15 @@ Module.register("MMM-SpaceLaunchNow", {
 
 	// Requests new data from launch Api.
 	updateLaunchData: function () {
-		var endpoint = "";
+		var today = new Date().toISOString().slice(0, 10)
+		var options = "&limit=" + this.config.records;
 		if (this.config.modus === "upcoming") {
-			endpoint = "upcoming/?format=json";
+			options = "&&window_start__gte=" + today;
 		} else if (this.config.modus === "past") {
-			endpoint = "previous/?format=json";
+			options = "&&window_start__lte=" + today;
 		}
 
-		var url = this.config.apiBase + "/" + endpoint;
+		var url = this.config.apiBase + "?format=json" + options;
 		var self = this;
 		var retry = true;
 
