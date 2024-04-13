@@ -11,7 +11,7 @@ Module.register("MMM-SpaceLaunchNow", {
 		showColumnHeader: false,
 		initialLoadDelay: 2500,
 		retryDelay: 2500,
-		headerText: "SpaceLaunchNow",
+		headerText: "",
 		maxWidthWide: 30,
 		maxWidthSmall: 12,
 		apiBase: "https://ll.thespacedevs.com/2.2.0/launch",
@@ -146,7 +146,7 @@ Module.register("MMM-SpaceLaunchNow", {
 
 	// Override getHeader method.
 	getHeader: function () {
-		this.data.header = this.config.headerText + " - " + this.config.modus.toUpperCase() + " LAUNCHES";
+		this.data.header = (this.config.headerText ? (this.config.headerText + " - ") : "") + this.config.modus.toUpperCase() + " LAUNCHES";
 		return this.data.header;
 	},
 
