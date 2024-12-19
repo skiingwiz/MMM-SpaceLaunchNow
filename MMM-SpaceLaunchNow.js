@@ -90,12 +90,12 @@ Module.register("MMM-SpaceLaunchNow", {
 
 			if (this.config.showExtraInfo) {
 				var agency = document.createElement("td");
-				if (launch.rocket.configuration.launch_service_provider.length > 12 && shortDesc == true) {
-					agency.innerHTML = launch.rocket.configuration.launch_service_provider.slice(0, 12) + "...";
-				} else if (launch.rocket.configuration.launch_service_provider.length > this.config.maxWidthWide) {
-					agency.innerHTML = launch.rocket.configuration.launch_service_provider.slice(0, this.config.maxWidthWide) + "...";
+				if (launch.launch_service_provider.name.length > 12 && shortDesc == true) {
+					agency.innerHTML = launch.launch_service_provider.name.slice(0, 12) + "...";
+				} else if (launch.launch_service_provider.name.length > this.config.maxWidthWide) {
+					agency.innerHTML = launch.launch_service_provider.name.slice(0, this.config.maxWidthWide) + "...";
 				} else {
-					agency.innerHTML = launch.rocket.configuration.launch_service_provider;
+					agency.innerHTML = launch.launch_service_provider.name;
 				}
 				launchRow.appendChild(agency);
 			}
