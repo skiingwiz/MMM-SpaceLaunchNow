@@ -8,6 +8,7 @@ Module.register("MMM-SpaceLaunchNow", {
 		records: 5,
 		modus: "past",
 		showExtraInfo: false,
+		showLaunchSite: false,
 		showColumnHeader: false,
 		initialLoadDelay: 2500,
 		retryDelay: 2500,
@@ -114,15 +115,18 @@ Module.register("MMM-SpaceLaunchNow", {
 			}
 			launchRow.appendChild(mission);
 
-			var launchSite = document.createElement("td");
-			if (launch.pad.name.length > 12 && shortDesc == true) {
-				launchSite.innerHTML = launch.pad.name.slice(0, 12) + "...";
-			} else if (launch.pad.name.length > this.config.maxWidthWide) {
-				launchSite.innerHTML = launch.pad.name.slice(0, this.config.maxWidthWide) + "...";;
-			} else {
-				launchSite.innerHTML = launch.pad.name;
-			}
-			launchRow.appendChild(launchSite);
+
+			if (this.config.showLaunchSite) {
+			    var launchSite = document.createElement("td");
+			    if (launch.pad.name.length > 12 && shortDesc == true) {
+			    	launchSite.innerHTML = launch.pad.name.slice(0, 12) + "...";
+			    } else if (launch.pad.name.length > this.config.maxWidthWide) {
+			    	launchSite.innerHTML = launch.pad.name.slice(0, this.config.maxWidthWide) + "...";;
+			    } else {
+			    	launchSite.innerHTML = launch.pad.name;
+			    }
+			    launchRow.appendChild(launchSite);
+            }
 
 			var launchDate = document.createElement("td");
 			var timestamp = new Date(launch.net);
@@ -219,8 +223,10 @@ Module.register("MMM-SpaceLaunchNow", {
 		}
 		var thMission = document.createElement("th");
 		thMission.appendChild(document.createTextNode("Mission"));
-		var thLaunchSite = document.createElement("th");
-		thLaunchSite.appendChild(document.createTextNode("Site"));
+		if (this.config.showLaunchSite) {
+		    var thLaunchSite = document.createElement("th");
+		    thLaunchSite.appendChild(document.createTextNode("Site"));
+        }
 		var thLaunchDate = document.createElement("th");
 		thLaunchDate.appendChild(document.createTextNode("Date"));
 		var thStatus = document.createElement("th");
@@ -232,7 +238,9 @@ Module.register("MMM-SpaceLaunchNow", {
 			thead.appendChild(thAgency);
 		}
 		thead.appendChild(thMission);
-		thead.appendChild(thLaunchSite);
+		if (this.config.showLaunchSite) {
+		    thead.appendChild(thLaunchSite);
+        }
 		thead.appendChild(thLaunchDate);
 		thead.appendChild(thStatus);
 
